@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', function () {
         //var resultElement = document.getElementById('result');
         // resultElement.appendChild(cardElement);
 
-        //
+        //this displays the information from the prvious search 
         var cardContainer = document.getElementById('card-container');
         cardContainer.appendChild(cardElement);
         cardContainer.classList.add('show');

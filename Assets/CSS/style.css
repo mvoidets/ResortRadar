@@ -6,13 +6,13 @@ body {
 
 
 .container {
-    max-width: 600px;
+    max-width: 300px;
 }
 
 .card-container {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 215px;
+  left: 990px;
   transform: translate(-50%, -50%);
   width: 300px;
   z-index: 1000;
