@@ -1,11 +1,11 @@
 //setting default background image before user enters data
 document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1479888230021-c24f136d849f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsaW5nJTIwbHVnZ2FnZXxlbnwwfHwwfHx8MA%3D%3D')";
 document.body.style.backgroundRepeat = 'no-repeat';
-document.body.style.backgroundSize = 'cover'; 
+document.body.style.backgroundSize = 'cover';
 
 // working code for weather app, just need to add for second choice 
 //line 34 is for calling function to change background image
-document.getElementById('weather-form').addEventListener('submit', function(event) {
+document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const city = document.getElementById('city').value;
@@ -15,13 +15,13 @@ document.getElementById('weather-form').addEventListener('submit', function(even
     const limit = 1;
     const apiKey = 'ae6228c596430403bdb4b85fa54b467a'; // My API key from OpenWeatherMap
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&appid=${apiKey}&units=imperial`; //imperial 
-  
+
     //gets weather data from openweather api
-fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-        if (data.cod === 200) {
-            const weather = `
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod === 200) {
+                const weather = `
                 <h2 class="text-center">Weather in ${data.name}, ${data.sys.country}</h2>
                 <ul class="list-group">
                     <li class="list-group-item">Temperature: ${data.main.temp} °F</li> 
@@ -31,32 +31,32 @@ fetch(apiUrl)
                    
                 </ul>
             `;
-            document.getElementById('result').innerHTML = weather;
-            updateBackgroundImage(data.weather[0].description); // to change background image
+                document.getElementById('result').innerHTML = weather;
+                updateBackgroundImage(data.weather[0].description); // to change background image
 
-            // Export weather and save to local storage to use later
-            window.weather = data.weather[0].description;
-            window.temperature = data.main.temp;
-            window.humidity = data.main.humidity;
-            window.windSpeed = data.wind.speed;
-            //console.log(`window weather `+ window.weather);
-            localStorage.setItem('window.weather', JSON.stringify(window.weather));
-            localStorage.setItem('window.temperature', JSON.stringify(window.temperature));
-            localStorage.setItem('window.humidity', JSON.stringify(window.humidity));
-            localStorage.setItem('window.windSpeed', JSON.stringify(window.windSpeed));
+                // Export weather and save to local storage to use later
+                window.weather = data.weather[0].description;
+                window.temperature = data.main.temp;
+                window.humidity = data.main.humidity;
+                window.windSpeed = data.wind.speed;
+                //console.log(`window weather `+ window.weather);
+                localStorage.setItem('window.weather', JSON.stringify(window.weather));
+                localStorage.setItem('window.temperature', JSON.stringify(window.temperature));
+                localStorage.setItem('window.humidity', JSON.stringify(window.humidity));
+                localStorage.setItem('window.windSpeed', JSON.stringify(window.windSpeed));
 
-        } else {
-            document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
-        }
-    })
-    .catch(error => {
-        document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Failed to fetch weather data. Please try again later.</div>`;
-        console.error('Error:', error);
-    });
+            } else {
+                document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
+            }
+        })
+        .catch(error => {
+            document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Failed to fetch weather data. Please try again later.</div>`;
+            console.error('Error:', error);
+        });
 });
 
-  // Store the form data in local storage (for main selection)
-  document.getElementById('weather-form').addEventListener('submit', function(event) {
+// Store the form data in local storage (for main selection)
+document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
     var city = document.getElementById('city').value;
     var state = document.getElementById('state').value;
@@ -66,8 +66,8 @@ fetch(apiUrl)
     var weatherData = {
         city: city,
         state: state,
-       // country: country,
-       // unit: unit
+        // country: country,
+        // unit: unit
     };
 
     localStorage.setItem('weatherData', JSON.stringify(weatherData));
@@ -78,14 +78,14 @@ fetch(apiUrl)
 });
 console.log(localStorage.getItem('weatherData'));
 //bring up saved storage
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
     var weatherData = localStorage.getItem('weatherData');
     var windowWeather = localStorage.getItem('window.weather');
     var windowTemperature = localStorage.getItem('window.temperature');
     var windowHumidity = localStorage.getItem('window.humidity');
     var windowWindSpeed = localStorage.getItem('window.windSpeed');
-    
-    
+
+
     if (weatherData) {
         weatherData = JSON.parse(weatherData);
         var cardElement = document.createElement('div');
@@ -102,16 +102,22 @@ window.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         //var resultElement = document.getElementById('result');
-       // resultElement.appendChild(cardElement);
+        // resultElement.appendChild(cardElement);
 
         //
         var cardContainer = document.getElementById('card-container');
         cardContainer.appendChild(cardElement);
         cardContainer.classList.add('show');
 
-        
-        // Hide the card container when the page is active
-        document.addEventListener('click', function() {
+
+        // Create a close button for the card container
+        var closeButton = document.createElement('button');
+        closeButton.innerHTML = 'Close';
+        closeButton.classList.add('close-button');
+        cardContainer.appendChild(closeButton);
+
+        // Hide the card container when the close button is clicked
+        closeButton.addEventListener('click', function () {
             cardContainer.classList.remove('show');
         });
 
@@ -119,13 +125,13 @@ window.addEventListener('DOMContentLoaded', function() {
         dragElement(cardContainer);
     }
 
-    
+
     function dragElement(element) {
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         element.onmousedown = dragMouseDown;
 
         function dragMouseDown(e) {
-            e = e || window.event;
+            const event = e ;
             e.preventDefault();
             // Get the mouse cursor position at startup
             pos3 = e.clientX;
@@ -135,24 +141,24 @@ window.addEventListener('DOMContentLoaded', function() {
         }
 
         function elementDrag(e) {
-            e = e || window.event;
+            e = e ;
             e.preventDefault();
             // Calculate the new cursor position
             pos1 = pos3 - e.clientX;
             pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
-                        // Set the element's new position
-                        element.style.top = (element.offsetTop - pos2) + "px";
-                        element.style.left = (element.offsetLeft - pos1) + "px";
-                    }
-            
-                    function closeDragElement() {
-                        // Stop moving when mouse button is released
-                        document.onmouseup = null;
-                        document.onmousemove = null;
-                    }
-                
+            // Set the element's new position
+            element.style.top = (element.offsetTop - pos2) + "px";
+            element.style.left = (element.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // Stop moving when mouse button is released
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+
     }
 });
 
@@ -176,11 +182,11 @@ function updateBackgroundImage(weatherCondition) {
     } else {
         imageUrl = 'https://media.istockphoto.com/id/516351793/photo/majestic-storm-clouds.webp?a=1&b=1&s=612x612&w=0&k=20&c=tDfBtifE8AHOehX8aiT2oba0vmefC_gpO2Ti-wcYBaU=';
     }
-   // background image styling, need to figure how to adjust with media screen change
+    // background image styling, need to figure how to adjust with media screen change
     body.style.backgroundImage = `url(${imageUrl})`;
     body.style.backgroundRepeat = 'no-repeat';
     body.style.backgroundSize = 'cover';
 
-console.log(document.querySelector('body'));
+    console.log(document.querySelector('body'));
 };
 // end
