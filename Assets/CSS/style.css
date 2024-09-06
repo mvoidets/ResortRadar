@@ -7,4 +7,27 @@ body {
     max-width: 600px;
 }
 
+/* not sure how to get media query to work
+images are not resizing to fit smaller screens
 
+@media (max-width: 1024px) {
+    body {
+      
+      background-size: cover;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      
+      background-size: cover;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+     
+      background-size: cover;
+    }
+  }
+*/

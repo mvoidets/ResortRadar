@@ -18,42 +18,38 @@
   
 </head>
 <body>
-    <div class="container float-right">
-        <h1 class="text-center mb-4">Check the Weather</h1>
+
+    <div class="container float-right" style="position: fixed; top: 10px; right: 10px;">
+        <h1 class="text-center mb-4">ResortRadar</h1>
+        <h2 class="text-center mb-4">Let's travel!</h2>
         <form id="weather-form">
-            <div class="col-md-6">
-                <label for="city">Enter your destination city:</label>
+            <div class="col-md-4">
+                <label for="city" style="color: white; font-weight: bold;">Enter your destination city:</label>
                 <input type="text" class="form-control" id="city" name="city" required>
             </div>
-            <div class="col-md-6">
-                <label for="state">Enter your destination state:</label>
+            <div class="col-md-4">
+                <label for="state" style="color: white; font-weight: bold;">Enter your destination state:</label>
                 <input type="text" class="form-control" id="state" name="state" required>
             </div>
-            <div class="col-md-6">
+         <!----  <div class="col-md-4">
                 <label for="country">Enter your destination country:</label>
                 <input type="text" class="form-control" id="country" name="country" placeholder="USA">
-            </div>
+            </div> -->
             <!-- this needs to be coded for click response to change units-->
-            <div class="col-md-6">
-                <label for="unit">Select the temperature unit:</label>
+           <div class="col-md-4">
+            <!--  <label for="unit">Select the temperature unit:</label>
                 <select class="form-control" id="unit" name="unit">
                     <option value="imperial">Fahrenheit</option>
                     <option value="metric">Celsius</option>
-                </select>
+                </select>  -->
             <button type="submit" class="btn btn-primary btn-block">Get Weather</button>
+            
         </form>
+
         <div class="result mt-4" id="result"></div>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
-   
-
     
-
-
-
-
-
-
 </body>
+
 </html>
