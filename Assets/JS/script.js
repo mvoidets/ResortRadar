@@ -1,8 +1,10 @@
+//setting default background image before user enters data
 document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1479888230021-c24f136d849f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsaW5nJTIwbHVnZ2FnZXxlbnwwfHwwfHx8MA%3D%3D')";
 document.body.style.backgroundRepeat = 'no-repeat';
-document.body.style.backgroundSize = 'cover'; // Adjust as needed
+document.body.style.backgroundSize = 'cover'; 
 
 // working code for weather app, just need to add for second choice 
+//line 34 is for calling function to change background image
 document.getElementById('weather-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -29,7 +31,7 @@ fetch(apiUrl)
                 </ul>
             `;
             document.getElementById('result').innerHTML = weather;
-            updateBackgroundImage(data.weather[0].description); // Call the function with the weather condition
+            updateBackgroundImage(data.weather[0].description); // to change background image
         } else {
             document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
         }
@@ -40,10 +42,7 @@ fetch(apiUrl)
     });
 });
 
-// working code for weather app, above here
-
-//local storage
-  // Store the form data in local storage
+  // Store the form data in local storage (for main selection)
   document.getElementById('weather-form').addEventListener('submit', function(event) {
     event.preventDefault();
     var city = document.getElementById('city').value;
@@ -86,11 +85,11 @@ function updateBackgroundImage(weatherCondition) {
     } else {
         imageUrl = 'https://media.istockphoto.com/id/516351793/photo/majestic-storm-clouds.webp?a=1&b=1&s=612x612&w=0&k=20&c=tDfBtifE8AHOehX8aiT2oba0vmefC_gpO2Ti-wcYBaU=';
     }
-
+   // background image styling, need to figure how to adjust with media screen change
     body.style.backgroundImage = `url(${imageUrl})`;
     body.style.backgroundRepeat = 'no-repeat';
     body.style.backgroundSize = 'cover';
 
 console.log(document.querySelector('body'));
 };
-
+// end
