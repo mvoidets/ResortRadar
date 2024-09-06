@@ -16,6 +16,7 @@ document.getElementById('weather-form').addEventListener('submit', function(even
     const apiKey = 'ae6228c596430403bdb4b85fa54b467a'; // My API key from OpenWeatherMap
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&appid=${apiKey}&units=imperial`; //imperial 
   
+    //gets weather data from openweather api
 fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -32,6 +33,18 @@ fetch(apiUrl)
             `;
             document.getElementById('result').innerHTML = weather;
             updateBackgroundImage(data.weather[0].description); // to change background image
+
+            // Export weather and save to local storage to use later
+            window.weather = data.weather[0].description;
+            window.temperature = data.main.temp;
+            window.humidity = data.main.humidity;
+            window.windSpeed = data.wind.speed;
+            //console.log(`window weather `+ window.weather);
+            localStorage.setItem('window.weather', JSON.stringify(window.weather));
+            localStorage.setItem('window.temperature', JSON.stringify(window.temperature));
+            localStorage.setItem('window.humidity', JSON.stringify(window.humidity));
+            localStorage.setItem('window.windSpeed', JSON.stringify(window.windSpeed));
+
         } else {
             document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
         }
@@ -64,6 +77,84 @@ fetch(apiUrl)
     resultElement.innerHTML = 'Form data stored in local storage.';
 });
 console.log(localStorage.getItem('weatherData'));
+//bring up saved storage
+window.addEventListener('DOMContentLoaded', function() {
+    var weatherData = localStorage.getItem('weatherData');
+    var windowWeather = localStorage.getItem('window.weather');
+    var windowTemperature = localStorage.getItem('window.temperature');
+    var windowHumidity = localStorage.getItem('window.humidity');
+    var windowWindSpeed = localStorage.getItem('window.windSpeed');
+    
+    
+    if (weatherData) {
+        weatherData = JSON.parse(weatherData);
+        var cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.innerHTML = `
+            <div id="card-container" draggable="true" >
+            <h5 class="card-title">Previously selected destination:</h5>
+            <p class="card-text">City: ${weatherData.city.toUpperCase()}</p>
+            <p class="card-text">State: ${weatherData.state.toUpperCase()}</p>
+            <p class="card-text">Temperature: ${windowTemperature} °F</p>
+            <p class="card-text">Weather: ${windowWeather}</p>
+            <p class="card-text">Humidity: ${windowHumidity}%</p>
+            <p class="card-text">Wind Speed: ${windowWindSpeed} m/s</p>
+            </div>
+        `;
+        //var resultElement = document.getElementById('result');
+       // resultElement.appendChild(cardElement);
+
+        //
+        var cardContainer = document.getElementById('card-container');
+        cardContainer.appendChild(cardElement);
+        cardContainer.classList.add('show');
+
+        
+        // Hide the card container when the page is active
+        document.addEventListener('click', function() {
+            cardContainer.classList.remove('show');
+        });
+
+        // Make the card draggable
+        dragElement(cardContainer);
+    }
+
+    
+    function dragElement(element) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        element.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // Get the mouse cursor position at startup
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // Calculate the new cursor position
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+                        // Set the element's new position
+                        element.style.top = (element.offsetTop - pos2) + "px";
+                        element.style.left = (element.offsetLeft - pos1) + "px";
+                    }
+            
+                    function closeDragElement() {
+                        // Stop moving when mouse button is released
+                        document.onmouseup = null;
+                        document.onmousemove = null;
+                    }
+                
+    }
+});
 
 //change background based on weather
 
