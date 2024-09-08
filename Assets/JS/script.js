@@ -107,7 +107,7 @@ window.addEventListener('DOMContentLoaded', function () {
         //this displays the information from the prvious search 
         var cardContainer = document.getElementById('card-container');
         cardContainer.appendChild(cardElement);
-        cardContainer.classList.add('show');
+        cardContainer.classList.add('show' ,'draggable');
 
 
         // Create a close button for the card container
@@ -122,44 +122,10 @@ window.addEventListener('DOMContentLoaded', function () {
         });
 
         // Make the card draggable
-        dragElement(cardContainer);
+        //dragElement(cardContainer);
     }
 
 
-    function dragElement(element) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        element.onmousedown = dragMouseDown;
-
-        function dragMouseDown(e) {
-            const event = e ;
-            e.preventDefault();
-            // Get the mouse cursor position at startup
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-            e = e ;
-            e.preventDefault();
-            // Calculate the new cursor position
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            // Set the element's new position
-            element.style.top = (element.offsetTop - pos2) + "px";
-            element.style.left = (element.offsetLeft - pos1) + "px";
-        }
-
-        function closeDragElement() {
-            // Stop moving when mouse button is released
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }
-
-    }
 });
 
 //change background based on weather
@@ -178,7 +144,7 @@ function updateBackgroundImage(weatherCondition) {
     } else if (weatherCondition.includes('snowing')) {
         imageUrl = 'https://plus.unsplash.com/premium_photo-1670963964733-c4b2ea8a79be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c25vdyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D';
     } else if (weatherCondition.includes('clear')) {
-        imageUrl = 'https://media.istockphoto.com/id/1454852967/photo/cloudless-sky-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=jFsxhTgVkaJNipQePJVPVrrlsZmFUva32fHGGTTQkRw=';
+        imageUrl = 'https://media.istockphoto.com/id/1650859382/photo/bright-sun-shines-on-clear-blue-sky.jpg?s=2048x2048&w=is&k=20&c=EaDOdi-yZmeGFMW8Suj4Rjf3KNuaVnau6V0_l_Otk_0=';
     } else {
         imageUrl = 'https://media.istockphoto.com/id/516351793/photo/majestic-storm-clouds.webp?a=1&b=1&s=612x612&w=0&k=20&c=tDfBtifE8AHOehX8aiT2oba0vmefC_gpO2Ti-wcYBaU=';
     }

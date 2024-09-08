@@ -11,13 +11,13 @@ body {
 
 .card-container {
   position: fixed;
-  top: 215px;
-  left: 990px;
+  top:20%;
+  left: 15%;
   transform: translate(-50%, -50%);
   width: 300px;
   z-index: 1000;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #1d1c1c;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: none; /* Initially hidden */
