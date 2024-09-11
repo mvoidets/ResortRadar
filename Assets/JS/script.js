@@ -6,12 +6,7 @@ document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
-<<<<<<< HEAD
 // Event listener for the weather form
-=======
-//needed for API call
-//working on replacing this section 
->>>>>>> 4f2ddfe6e6fdb6650d7d1b1f3c058a626d1d2fe5
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
     // this.style.display = 'none';h
@@ -29,23 +24,44 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
         .then(response => response.json())
         .then(data => {
             if (data.cod === 200) { 
-                //this not needed if we arent wanting to display the data on the page
-                // const weather = `
-                // <div class="card" style="width: 18rem; padding:30px ">
-                //     <h3 class="text-center">Weather in ${city.toUpperCase()}, ${state.toUpperCase()} </h3>
-                //     <ul class="list-group bg-transparent">
-                //         <li class="list-group-item">Temperature: ${data.main.temp} °F</li> 
-                //         <li class="list-group-item">Weather: ${data.weather[0].description}</li>
-                //         <li class="list-group-item">Humidity: ${data.main.humidity}%</li>
-                //         <li class="list-group-item">Wind Speed: ${data.wind.speed} m/s</li>
-                // </ul>
-                // </div>
-            //`;
-            //this is to display the weather data on the page
-                //document.getElementById('weather-cards-container').innerHTML = weather;
-                 // to change background image
-
+         
                 // Export weather and save to local storage to use later
+                var city = document.getElementById('city').value;
+                var state = document.getElementById('state').value;
+                var weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
+                var weatherData = {
+                    city: city,
+                    state: state,
+            
+                };
+            
+                if (weatherData.length != 0) {
+                    weatherDataArray.push(weatherData);
+                }
+                if (weatherDataArray.length > 2) {
+                    weatherDataArray.splice(0, weatherDataArray.length - 2);
+                }
+            
+                localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
+               
+                var city = document.getElementById('city').value;
+                var state = document.getElementById('state').value;
+                var weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
+                var weatherData = {
+                    city: city,
+                    state: state,
+            
+                };
+            
+                if (weatherData.length != 0) {
+                    weatherDataArray.push(weatherData);
+                }
+                if (weatherDataArray.length > 2) {
+                    weatherDataArray.splice(0, weatherDataArray.length - 2);
+                }
+            
+                localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
+               
 
                 const weatherExtra = {
                     weather: data.weather[0].description,
@@ -61,6 +77,9 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 }
                 localStorage.setItem('weatherExtra', JSON.stringify(weatherExtraArray));
 
+                //will have cards display when click submit/GetWeather
+                displayWeatherCards(weatherDataArray.slice(0, 2), weatherExtraArray.slice(0, 2));
+
             } else {
                 document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
             }
@@ -71,29 +90,6 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
         });
 });
 
-// Store the form data in local storage 
-document.getElementById('weather-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    var city = document.getElementById('city').value;
-    var state = document.getElementById('state').value;
-    var weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
-    var weatherData = {
-        city: city,
-        state: state,
-
-    };
-
-    if (weatherData.length != 0) {
-        weatherDataArray.push(weatherData);
-    }
-    if (weatherDataArray.length > 2) {
-        weatherDataArray.splice(0, weatherDataArray.length - 2);
-    }
-
-    localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
-   
-
-});
 
 console.log(localStorage.getItem('weatherData'));
 
@@ -164,10 +160,6 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
         
         }
 }
-
-
-
-
 
 // Retrieve data from localStorage or initialize empty arrays
 const weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
