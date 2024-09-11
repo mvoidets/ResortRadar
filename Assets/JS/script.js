@@ -35,7 +35,8 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 </ul>
                 </div>
             `;
-                document.getElementById('result').innerHTML = weather;
+              //commented out below as this will hide the card on submit//  
+                //document.getElementById('result').innerHTML = weather;
                 updateBackgroundImage(data.weather[0].description); // to change background image
 
                 // Export weather and save to local storage to use later
