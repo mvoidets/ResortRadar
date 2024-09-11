@@ -35,7 +35,7 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 </ul>
                 </div>
             `;
-                document.getElementById('result').innerHTML = weather;
+                document.getElementById('weather-cards-container').innerHTML = weather;
                 updateBackgroundImage(data.weather[0].description); // to change background image
 
                 // Export weather and save to local storage to use later
@@ -114,9 +114,17 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
     }
 
     for (let i = 0; i < numberOfCards; i++) {
-        const card = document.createElement('div');
-        card.className = 'card';
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'col-sm-6 mb-3 mb-sm-0';
 
+
+        const card = document.createElement('div');
+        card.className = 'card text-bg-dark';
+        card.className = 'card-img'
+
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+        
         const cityName = document.createElement('h3');
         cityName.textContent = `${weatherDataArray[i].city.toUpperCase()}, ${weatherDataArray[i].state.toUpperCase()}`;
 
@@ -124,21 +132,24 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
         temperature.textContent = `Temperature: ${weatherExtraArray[i].temperature}°F`;
 
         const weather = document.createElement('p');
+        weather.className = 'card-text';
         weather.textContent = `Weather: ${weatherExtraArray[i].weather}`;
-
+  
         const humidity = document.createElement('p');
         humidity.textContent = `Humidity: ${weatherExtraArray[i].humidity}%`;
 
         const windSpeed = document.createElement('p');
         windSpeed.textContent = `Wind Speed: ${weatherExtraArray[i].windSpeed} m/s`;
 
-        card.appendChild(cityName);
-        card.appendChild(temperature);
-        card.appendChild(weather);
-        card.appendChild(humidity);
-        card.appendChild(windSpeed);
+        cardBody.appendChild(cityName);
+        cardBody.appendChild(temperature);
+        cardBody.appendChild(weather);
+        cardBody.appendChild(humidity);
+        cardBody.appendChild(windSpeed);
+        card.appendChild(cardBody);
+        cardContainer.appendChild(card);
 
-        container.appendChild(card);
+        container.appendChild(cardContainer);
     }
 }
 
