@@ -7,7 +7,7 @@ document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
 //needed for API call
-
+//working on replacing this section 
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
