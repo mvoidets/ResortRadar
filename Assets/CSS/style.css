@@ -3,8 +3,61 @@ body {
     font-family: Arial, sans-serif;
     margin-top: 20px;
 }
-.container {
-    max-width: 600px;
+
+.background-image {
+    
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  background-repeat: no-repeat;
 }
 
+.container {
+    max-width: 300px;
+}
 
+.card-container {
+  position: fixed;
+  top:20%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid #1d1c1c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: none; /* Initially hidden */
+}
+
+.card-container.show {
+  display: block;
+}
+
+.card-body {
+  cursor: move; /* Change cursor to indicate draggable area */
+}
+/* not sure how to get media query to work
+images are not resizing to fit smaller screens
+
+@media (max-width: 1024px) {
+    body {
+      
+      background-size: cover;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      
+      background-size: cover;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    body {
+     
+      background-size: cover;
+    }
+  }
+*/
