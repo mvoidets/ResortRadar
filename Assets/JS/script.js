@@ -7,9 +7,11 @@ document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
 //needed for API call
+//i am working on something to replace this code so it doesnt generated this card for id=results
 
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
+    // this.style.display = 'none';
 
     const city = document.getElementById('city').value;
     const state = document.getElementById('state').value;
@@ -23,20 +25,21 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.cod === 200) {
-                const weather = `
-                <div class="card" style="width: 18rem; padding:30px ">
-                    <h3 class="text-center">Weather in ${city.toUpperCase()}, ${state.toUpperCase()} </h3>
-                    <ul class="list-group bg-transparent">
-                        <li class="list-group-item">Temperature: ${data.main.temp} °F</li> 
-                        <li class="list-group-item">Weather: ${data.weather[0].description}</li>
-                        <li class="list-group-item">Humidity: ${data.main.humidity}%</li>
-                        <li class="list-group-item">Wind Speed: ${data.wind.speed} m/s</li>
-                </ul>
-                </div>
-            `;
-                document.getElementById('weather-cards-container').innerHTML = weather;
-                updateBackgroundImage(data.weather[0].description); // to change background image
+            if (data.cod === 200) { //this not needed if we arent wanting to display the data on the page
+                // const weather = `
+                // <div class="card" style="width: 18rem; padding:30px ">
+                //     <h3 class="text-center">Weather in ${city.toUpperCase()}, ${state.toUpperCase()} </h3>
+                //     <ul class="list-group bg-transparent">
+                //         <li class="list-group-item">Temperature: ${data.main.temp} °F</li> 
+                //         <li class="list-group-item">Weather: ${data.weather[0].description}</li>
+                //         <li class="list-group-item">Humidity: ${data.main.humidity}%</li>
+                //         <li class="list-group-item">Wind Speed: ${data.wind.speed} m/s</li>
+                // </ul>
+                // </div>
+            //`;
+            //this is to display the weather data on the page
+                //document.getElementById('weather-cards-container').innerHTML = weather;
+                 // to change background image
 
                 // Export weather and save to local storage to use later
 
@@ -80,7 +83,7 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
         weatherDataArray.push(weatherData);
     }
     if (weatherDataArray.length > 2) {
-        weatherDataArray.splice(0, weatherDataArray.length - 3);
+        weatherDataArray.splice(0, weatherDataArray.length - 2);
     }
 
     localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
@@ -119,8 +122,8 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
 
 
         const card = document.createElement('div');
-        card.className = 'card text-bg-dark';
-        card.className = 'card-img'
+        card.className = 'card card-bg text-center';
+        card.id = `myCard${i}`;
 
         const cardBody = document.createElement('div');
         cardBody.className = 'card-body';
@@ -134,8 +137,9 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
         const weather = document.createElement('p');
         weather.className = 'card-text';
         weather.textContent = `Weather: ${weatherExtraArray[i].weather}`;
-  
+        
         const humidity = document.createElement('p');
+        humidity.className = 'card-text';
         humidity.textContent = `Humidity: ${weatherExtraArray[i].humidity}%`;
 
         const windSpeed = document.createElement('p');
@@ -148,9 +152,13 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
         cardBody.appendChild(windSpeed);
         card.appendChild(cardBody);
         cardContainer.appendChild(card);
-
+    
         container.appendChild(cardContainer);
-    }
+
+        //updateBackgroundImage(weatherExtraArray[i].weather);
+        updateBackgroundImage(weatherExtraArray[i].weather,`myCard${i}`);
+
+        }
 }
 
 // Retrieve data from localStorage or initialize empty arrays
@@ -166,8 +174,8 @@ displayWeatherCards(weatherDataArray.slice(0, 2), weatherExtraArray.slice(0, 2))
 
 
 ///to change backgroun image based on selected destination
-function updateBackgroundImage(weatherCondition) {
-    const body = document.querySelector('body');
+function updateBackgroundImage(weatherCondition, cardId) {
+    const cardImg = document.getElementById(cardId);
     let imageUrl = '';
 
     // Set the image URL based on the weather condition
@@ -185,14 +193,16 @@ function updateBackgroundImage(weatherCondition) {
         imageUrl = 'https://media.istockphoto.com/id/516351793/photo/majestic-storm-clouds.webp?a=1&b=1&s=612x612&w=0&k=20&c=tDfBtifE8AHOehX8aiT2oba0vmefC_gpO2Ti-wcYBaU=';
     }
     // background image styling, need to figure how to adjust with media screen change
-    body.style.backgroundImage = `url(${imageUrl})`;
-    body.style.backgroundRepeat = 'no-repeat';
-    body.style.backgroundSize = 'cover';
-    body.style.backgroundPosition = 'center';
-    body.style.margin = '0';
-    body.style.height = '100vh';
-
-  
+    cardImg.style.backgroundImage = `url(${imageUrl})`;
+    cardImg.style.backgroundRepeat = 'no-repeat';
+    //card.style.backgroundSize = 'cover';
+    cardImg.style.backgroundPosition = 'center';
+   // card.style.margin = '1';
+    cardImg.style.height = '30vh';
 };
+
+// Update the function call in the displayWeatherCards function
+
+
 
 // end

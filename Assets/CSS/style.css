@@ -39,6 +39,19 @@ body {
 .card-body {
   cursor: move; /* Change cursor to indicate draggable area */
 }
+
+
+.card-bg {
+  background-size: cover; /* Ensures the image covers the card area */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repeating the image */
+  color: white; /* Text color for contrast */
+  margin-bottom: 20px; /* Optional: Add spacing between cards */
+}
+.card-bg .card-body {
+  background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent overlay to improve text readability */
+  padding: 20px; /* Optional: Adjust padding as needed */
+}
 /* 
 #weather-form{
   flex-direction: row;
