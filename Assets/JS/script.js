@@ -84,33 +84,8 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     }
 
     localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
-/*
-    // Display the result- cant figure out how to display multiple cards
-    var resultElement = document.getElementById('result');
-    resultElement.innerHTML = 'Selected Destinations:';
-    resultElement.style.float = 'inherit'; 
-   // var countDest = weatherDataArray.length;
-    var weatherData = JSON.parse(localStorage.getItem('weatherData'))[0];
-    var weatherExtra = JSON.parse(localStorage.getItem('weatherExtra'))[0];
-    
-    for (let i = 0; i < countDest; i++) {
-        var cardElement = document.createElement('div');
-        cardElement.classList.add('card');
-        cardElement.innerHTML = `
-            <div class="card" style="width: 18rem; padding:30px">
-                    <h5 class="card-title">First selected destination:</h5> 
-			        <h2 class="text-center">Weather in ${weatherData.city.toUpperCase()}, ${weatherData.state.toUpperCase()}</h2>
-			    <ul class="list-group">
-                    <li class="list-group-item">Temperature: ${weatherExtra.temperature}  °F</li> 
-                    <li class="list-group-item">Weather: ${weatherExtra.weather}</li>
-                    <li class="list-group-item">Humidity: ${weatherExtra.humidity}%</li>
-                    <li class="list-group-item">Wind Speed: ${weatherExtra.windSpeed} m/s</li>
-                   
-                </ul>
-            </div>
-        `;
-        resultElement.appendChild(cardElement);
-    } */
+
+
 });
 
 console.log(localStorage.getItem('weatherData'));
