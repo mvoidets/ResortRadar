@@ -6,7 +6,12 @@ document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
+<<<<<<< HEAD
 // Event listener for the weather form
+=======
+//needed for API call
+//working on replacing this section 
+>>>>>>> 4f2ddfe6e6fdb6650d7d1b1f3c058a626d1d2fe5
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
     // this.style.display = 'none';h
