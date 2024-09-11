@@ -2,9 +2,12 @@
 document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1479888230021-c24f136d849f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsaW5nJTIwbHVnZ2FnZXxlbnwwfHwwfHx8MA%3D%3D')";
 document.body.style.backgroundRepeat = 'no-repeat';
 document.body.style.backgroundSize = 'cover';
+document.body.style.backgroundPosition = 'center';
+document.body.style.margin = '0';
+document.body.style.height = '100vh';
 
-// working code for weather app, just need to add for second choice 
-//line 34 is for calling function to change background image
+//needed for API call
+
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -22,28 +25,34 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
         .then(data => {
             if (data.cod === 200) {
                 const weather = `
-                <h2 class="text-center">Weather in ${data.name}, ${data.sys.country}</h2>
-                <ul class="list-group">
-                    <li class="list-group-item">Temperature: ${data.main.temp} °F</li> 
-                    <li class="list-group-item">Weather: ${data.weather[0].description}</li>
-                    <li class="list-group-item">Humidity: ${data.main.humidity}%</li>
-                    <li class="list-group-item">Wind Speed: ${data.wind.speed} m/s</li>
-                   
+                <div class="card" style="width: 18rem; padding:30px ">
+                    <h3 class="text-center">Weather in ${city.toUpperCase()}, ${state.toUpperCase()} </h3>
+                    <ul class="list-group bg-transparent">
+                        <li class="list-group-item">Temperature: ${data.main.temp} °F</li> 
+                        <li class="list-group-item">Weather: ${data.weather[0].description}</li>
+                        <li class="list-group-item">Humidity: ${data.main.humidity}%</li>
+                        <li class="list-group-item">Wind Speed: ${data.wind.speed} m/s</li>
                 </ul>
+                </div>
             `;
                 document.getElementById('result').innerHTML = weather;
                 updateBackgroundImage(data.weather[0].description); // to change background image
 
                 // Export weather and save to local storage to use later
-                window.weather = data.weather[0].description;
-                window.temperature = data.main.temp;
-                window.humidity = data.main.humidity;
-                window.windSpeed = data.wind.speed;
-                //console.log(`window weather `+ window.weather);
-                localStorage.setItem('window.weather', JSON.stringify(window.weather));
-                localStorage.setItem('window.temperature', JSON.stringify(window.temperature));
-                localStorage.setItem('window.humidity', JSON.stringify(window.humidity));
-                localStorage.setItem('window.windSpeed', JSON.stringify(window.windSpeed));
+
+                const weatherExtra = {
+                    weather: data.weather[0].description,
+                    temperature: data.main.temp,
+                    humidity: data.main.humidity,
+                    windSpeed: data.wind.speed
+                };
+
+                let weatherExtraArray = JSON.parse(localStorage.getItem('weatherExtra')) || [];
+                weatherExtraArray.push(weatherExtra);
+                if (weatherExtraArray.length > 2) {
+                    weatherExtraArray.splice(0, weatherExtraArray.length - 2);
+                }
+                localStorage.setItem('weatherExtra', JSON.stringify(weatherExtraArray));
 
             } else {
                 document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
@@ -55,81 +64,122 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
         });
 });
 
-// Store the form data in local storage (for main selection)
+// Store the form data in local storage 
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
     var city = document.getElementById('city').value;
     var state = document.getElementById('state').value;
-    //var country = document.getElementById('country').value;
-    //var unit = document.getElementById('unit').value;
-
+    var weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
     var weatherData = {
         city: city,
         state: state,
-        // country: country,
-        // unit: unit
+
     };
 
-    localStorage.setItem('weatherData', JSON.stringify(weatherData));
+    if (weatherData.length != 0) {
+        weatherDataArray.push(weatherData);
+    }
+    if (weatherDataArray.length > 2) {
+        weatherDataArray.splice(0, weatherDataArray.length - 3);
+    }
 
-    // Display the result
+    localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
+/*
+    // Display the result- cant figure out how to display multiple cards
     var resultElement = document.getElementById('result');
-    resultElement.innerHTML = 'Form data stored in local storage.';
-});
-console.log(localStorage.getItem('weatherData'));
-//bring up saved storage
-window.addEventListener('DOMContentLoaded', function () {
-    var weatherData = localStorage.getItem('weatherData');
-    var windowWeather = localStorage.getItem('window.weather');
-    var windowTemperature = localStorage.getItem('window.temperature');
-    var windowHumidity = localStorage.getItem('window.humidity');
-    var windowWindSpeed = localStorage.getItem('window.windSpeed');
-
-
-    if (weatherData) {
-        weatherData = JSON.parse(weatherData);
+    resultElement.innerHTML = 'Selected Destinations:';
+    resultElement.style.float = 'inherit'; 
+   // var countDest = weatherDataArray.length;
+    var weatherData = JSON.parse(localStorage.getItem('weatherData'))[0];
+    var weatherExtra = JSON.parse(localStorage.getItem('weatherExtra'))[0];
+    
+    for (let i = 0; i < countDest; i++) {
         var cardElement = document.createElement('div');
         cardElement.classList.add('card');
         cardElement.innerHTML = `
-            <div id="card-container" draggable="true" >
-            <h5 class="card-title">Previously selected destination:</h5>
-            <p class="card-text">City: ${weatherData.city.toUpperCase()}</p>
-            <p class="card-text">State: ${weatherData.state.toUpperCase()}</p>
-            <p class="card-text">Temperature: ${windowTemperature} °F</p>
-            <p class="card-text">Weather: ${windowWeather}</p>
-            <p class="card-text">Humidity: ${windowHumidity}%</p>
-            <p class="card-text">Wind Speed: ${windowWindSpeed} m/s</p>
+            <div class="card" style="width: 18rem; padding:30px">
+                    <h5 class="card-title">First selected destination:</h5> 
+			        <h2 class="text-center">Weather in ${weatherData.city.toUpperCase()}, ${weatherData.state.toUpperCase()}</h2>
+			    <ul class="list-group">
+                    <li class="list-group-item">Temperature: ${weatherExtra.temperature}  °F</li> 
+                    <li class="list-group-item">Weather: ${weatherExtra.weather}</li>
+                    <li class="list-group-item">Humidity: ${weatherExtra.humidity}%</li>
+                    <li class="list-group-item">Wind Speed: ${weatherExtra.windSpeed} m/s</li>
+                   
+                </ul>
             </div>
         `;
-        //var resultElement = document.getElementById('result');
-        // resultElement.appendChild(cardElement);
-
-        //this displays the information from the prvious search 
-        var cardContainer = document.getElementById('card-container');
-        cardContainer.appendChild(cardElement);
-        cardContainer.classList.add('show' ,'draggable');
-
-
-        // Create a close button for the card container
-        var closeButton = document.createElement('button');
-        closeButton.innerHTML = 'Close';
-        closeButton.classList.add('close-button');
-        cardContainer.appendChild(closeButton);
-
-        // Hide the card container when the close button is clicked
-        closeButton.addEventListener('click', function () {
-            cardContainer.classList.remove('show');
-        });
-
-        // Make the card draggable
-        //dragElement(cardContainer);
-    }
-
-
+        resultElement.appendChild(cardElement);
+    } */
 });
 
-//change background based on weather
+console.log(localStorage.getItem('weatherData'));
 
+
+
+function displayWeatherCards(weatherDataArray, weatherExtraArray) {
+    const container = document.getElementById('weather-cards-container');
+    container.innerHTML = ''; // Clear previous cards
+
+    if (!container) {
+        console.error('Element with id "weather-cards-container" not found.');
+        return;
+    }
+
+    // Log data to check if arrays are correctly populated
+    console.log('Weather Data Array:', weatherDataArray);
+    console.log('Weather Extra Array:', weatherExtraArray);
+
+    // Ensure both arrays are the same length
+    const numberOfCards = Math.min(weatherDataArray.length, weatherExtraArray.length);
+
+    if (numberOfCards === 0) {
+        console.warn('No data to display.');
+        return;
+    }
+
+    for (let i = 0; i < numberOfCards; i++) {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const cityName = document.createElement('h3');
+        cityName.textContent = `${weatherDataArray[i].city.toUpperCase()}, ${weatherDataArray[i].state.toUpperCase()}`;
+
+        const temperature = document.createElement('p');
+        temperature.textContent = `Temperature: ${weatherExtraArray[i].temperature}°F`;
+
+        const weather = document.createElement('p');
+        weather.textContent = `Weather: ${weatherExtraArray[i].weather}`;
+
+        const humidity = document.createElement('p');
+        humidity.textContent = `Humidity: ${weatherExtraArray[i].humidity}%`;
+
+        const windSpeed = document.createElement('p');
+        windSpeed.textContent = `Wind Speed: ${weatherExtraArray[i].windSpeed} m/s`;
+
+        card.appendChild(cityName);
+        card.appendChild(temperature);
+        card.appendChild(weather);
+        card.appendChild(humidity);
+        card.appendChild(windSpeed);
+
+        container.appendChild(card);
+    }
+}
+
+// Retrieve data from localStorage or initialize empty arrays
+const weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
+const weatherExtraArray = JSON.parse(localStorage.getItem('weatherExtra')) || [];
+
+// Log retrieved data to verify
+console.log('Retrieved Weather Data Array:', weatherDataArray);
+console.log('Retrieved Weather Extra Array:', weatherExtraArray);
+
+// Display only the first 2 cards from each array
+displayWeatherCards(weatherDataArray.slice(0, 2), weatherExtraArray.slice(0, 2));
+
+
+///to change backgroun image based on selected destination
 function updateBackgroundImage(weatherCondition) {
     const body = document.querySelector('body');
     let imageUrl = '';
@@ -144,7 +194,7 @@ function updateBackgroundImage(weatherCondition) {
     } else if (weatherCondition.includes('snowing')) {
         imageUrl = 'https://plus.unsplash.com/premium_photo-1670963964733-c4b2ea8a79be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c25vdyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D';
     } else if (weatherCondition.includes('clear')) {
-        imageUrl = 'https://media.istockphoto.com/id/1650859382/photo/bright-sun-shines-on-clear-blue-sky.jpg?s=2048x2048&w=is&k=20&c=EaDOdi-yZmeGFMW8Suj4Rjf3KNuaVnau6V0_l_Otk_0=';
+        imageUrl = 'https://images.pexels.com/photos/2102367/pexels-photo-2102367.jpeg?auto=compress&cs=tinysrgb&w=600';
     } else {
         imageUrl = 'https://media.istockphoto.com/id/516351793/photo/majestic-storm-clouds.webp?a=1&b=1&s=612x612&w=0&k=20&c=tDfBtifE8AHOehX8aiT2oba0vmefC_gpO2Ti-wcYBaU=';
     }
@@ -152,7 +202,11 @@ function updateBackgroundImage(weatherCondition) {
     body.style.backgroundImage = `url(${imageUrl})`;
     body.style.backgroundRepeat = 'no-repeat';
     body.style.backgroundSize = 'cover';
+    body.style.backgroundPosition = 'center';
+    body.style.margin = '0';
+    body.style.height = '100vh';
 
-    console.log(document.querySelector('body'));
+  
 };
+
 // end

@@ -4,6 +4,13 @@ body {
     margin-top: 20px;
 }
 
+.background-image {
+    
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  background-repeat: no-repeat;
+}
 
 .container {
     max-width: 300px;
@@ -12,7 +19,7 @@ body {
 .card-container {
   position: fixed;
   top:20%;
-  left: 15%;
+  left: 20%;
   transform: translate(-50%, -50%);
   width: 300px;
   z-index: 1000;
