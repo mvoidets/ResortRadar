@@ -44,25 +44,7 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
             
                 localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
                
-                var city = document.getElementById('city').value;
-                var state = document.getElementById('state').value;
-                var weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
-                var weatherData = {
-                    city: city,
-                    state: state,
-            
-                };
-            
-                if (weatherData.length != 0) {
-                    weatherDataArray.push(weatherData);
-                }
-                if (weatherDataArray.length > 2) {
-                    weatherDataArray.splice(0, weatherDataArray.length - 2);
-                }
-            
-                localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
                
-
                 const weatherExtra = {
                     weather: data.weather[0].description,
                     temperature: data.main.temp,
@@ -76,6 +58,10 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                     weatherExtraArray.splice(0, weatherExtraArray.length - 2);
                 }
                 localStorage.setItem('weatherExtra', JSON.stringify(weatherExtraArray));
+
+                //clear text fields
+                document.getElementById("city").value = "";
+                document.getElementById("state").value = "";
 
                 //will have cards display when click submit/GetWeather
                 displayWeatherCards(weatherDataArray.slice(0, 2), weatherExtraArray.slice(0, 2));
