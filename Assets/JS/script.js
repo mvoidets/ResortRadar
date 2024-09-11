@@ -6,15 +6,13 @@ document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
-//needed for API call
-//i am working on something to replace this code so it doesnt generated this card for id=results
-
+// Event listener for the weather form
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    // this.style.display = 'none';
+    // this.style.display = 'none';h
 
-    const city = document.getElementById('city').value;
-    const state = document.getElementById('state').value;
+    const city = document.getElementById('city').value.trim();
+    const state = document.getElementById('state').value.trim();
     //const country = document.getElementById('country').value;
     const country = 'USA';
     const limit = 1;
@@ -25,7 +23,8 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.cod === 200) { //this not needed if we arent wanting to display the data on the page
+            if (data.cod === 200) { 
+                //this not needed if we arent wanting to display the data on the page
                 // const weather = `
                 // <div class="card" style="width: 18rem; padding:30px ">
                 //     <h3 class="text-center">Weather in ${city.toUpperCase()}, ${state.toUpperCase()} </h3>
@@ -87,13 +86,13 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     }
 
     localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
-
+   
 
 });
 
 console.log(localStorage.getItem('weatherData'));
 
-
+//creates the weather cards
 
 function displayWeatherCards(weatherDataArray, weatherExtraArray) {
     const container = document.getElementById('weather-cards-container');
@@ -157,9 +156,13 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
 
         //updateBackgroundImage(weatherExtraArray[i].weather);
         updateBackgroundImage(weatherExtraArray[i].weather,`myCard${i}`);
-
+        
         }
 }
+
+
+
+
 
 // Retrieve data from localStorage or initialize empty arrays
 const weatherDataArray = JSON.parse(localStorage.getItem('weatherData')) || [];
@@ -201,7 +204,7 @@ function updateBackgroundImage(weatherCondition, cardId) {
     cardImg.style.height = '30vh';
 };
 
-// Update the function call in the displayWeatherCards function
+
 
 
 
