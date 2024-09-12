@@ -6,6 +6,19 @@ document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
+/////////////////////////
+//trying modal
+///////////////////////
+
+
+
+
+
+
+
+
+
+
 // Event listener for the weather form
 document.getElementById('weather-form').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -19,6 +32,12 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     const apiKey = 'ae6228c596430403bdb4b85fa54b467a'; // My API key from OpenWeatherMap
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&appid=${apiKey}&units=imperial`; //imperial 
 
+    
+   // const searchLimits = docucument.getElementById('searchLimits').value;
+   // localStorage.setItem('searchLimits', JSON.stringify(searchLimits));
+   // const searchLimit = JSON.parse(localStorage.getItem('searchLimits'));
+ const searchLimit = 2;
+ 
     //gets weather data from openweather api
     fetch(apiUrl)
         .then(response => response.json())
@@ -38,8 +57,8 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 if (weatherData.length != 0) {
                     weatherDataArray.push(weatherData);
                 }
-                if (weatherDataArray.length > 2) {
-                    weatherDataArray.splice(0, weatherDataArray.length - 2);
+                if (weatherDataArray.length > searchLimit) {
+                    weatherDataArray.splice(0, weatherDataArray.length - searchLimit);
                 }
             
                 localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
@@ -54,8 +73,8 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
 
                 let weatherExtraArray = JSON.parse(localStorage.getItem('weatherExtra')) || [];
                 weatherExtraArray.push(weatherExtra);
-                if (weatherExtraArray.length > 2) {
-                    weatherExtraArray.splice(0, weatherExtraArray.length - 2);
+                if (weatherExtraArray.length > searchLimit) {
+                    weatherExtraArray.splice(0, weatherExtraArray.length - searchLimit);
                 }
                 localStorage.setItem('weatherExtra', JSON.stringify(weatherExtraArray));
 
@@ -64,7 +83,7 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 document.getElementById("state").value = "";
 
                 //will have cards display when click submit/GetWeather
-                displayWeatherCards(weatherDataArray.slice(0, 2), weatherExtraArray.slice(0, 2));
+                displayWeatherCards(weatherDataArray.slice(0, searchLimit), weatherExtraArray.slice(0, searchLimit));
 
             } else {
                 document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
@@ -156,7 +175,7 @@ console.log('Retrieved Weather Data Array:', weatherDataArray);
 console.log('Retrieved Weather Extra Array:', weatherExtraArray);
 
 // Display only the first 2 cards from each array
-displayWeatherCards(weatherDataArray.slice(0, 2), weatherExtraArray.slice(0, 2));
+//displayWeatherCards(weatherDataArray.slice(0, searchLimit), weatherExtraArray.slice(0, searchLimit));
 
 
 ///to change backgroun image based on selected destination

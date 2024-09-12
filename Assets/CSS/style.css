@@ -18,6 +18,10 @@ body {
     background-repeat: no-repeat;
 }
 
+.btn {
+  min-width: 100px;
+}
+
 
 /*
 .container {
