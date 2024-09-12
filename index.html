@@ -58,26 +58,39 @@
                             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                         </li>
                     </ul> -->
-                    <form class="d-flex" id="weather-form" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Enter City" aria-label="Search" id="city"
-                            name="city" required>
-                        <input class="form-control me-2" type="search" placeholder="Enter State" aria-label="Search" id="state"
-                            name="state" required>
-                        <button class="btn btn-primary" type="submit">Get Weather</button>
-                    </form>
-                </div>
+                <form class="d-flex" id="weather-form" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Enter City" aria-label="Search"
+                        id="city" name="city" required>
+                    <input class="form-control me-2" type="search" placeholder="Enter State" aria-label="Search"
+                        id="state" name="state" required>
+                    <button class="btn btn-primary btn-sm" id="submit" type="submit"  >Get Weather</button>
+                    
+                </form>
             </div>
+ <!-- <div class="container">
+        <h1 class="text-center">Set Search Limit</h1>
+        <div class="form-group">
+            <label for="searchLimit">Enter the number of search compares (max 6):</label>
+            <input type="number" class="form-control" id="searchLimit" max="6" />
+        </div>
+        <button class="btn btn-primary btn-block" onclick="setSearchLimit()">Set Limit</button>
+        <div id="message" class="mt-3"></div>
+    </div> -->
+
         </nav>
-        
-
-        <h1 class="text-center mb-4">ResortRadar</h1>
-        <h2 class="text-center mb-4 ">Let's travel!</h2>
-
-        <div class="result md-4 " id="result"></div>
 
 
+    </div>
 
-        <div class="row" id="weather-cards-container"></div>
+
+    <h1 class="text-center mb-4">ResortRadar</h1>
+    <h2 class="text-center mb-4 ">Let's travel!</h2>
+
+    <div class="result md-4 " id="result"></div>
+
+
+
+    <div class="row" id="weather-cards-container"></div>
     </div>
 
 

@@ -9,25 +9,22 @@ This project aims to create a webpage that allows users to retrieve weather info
 ```md
 GIVEN a ResortRador for finding weather where i travel to
 WHEN I load the app,
-THEN I am presented with the landing page containing a form with labels and inputs for location, it then has options to select additional weather related data.
-WHEN I try to submit a form without a valid destination,
+THEN I am presented with the landing page containing a form with labels and inputs for location.
+WHEN I try to submit a form without a valid destination or incomplete data,
 THEN I am presented with a message that prompts me to select a valid location.
 WHEN I submit the form,
 THEN the weather is loaded from API and is stored to localStorage.
-WHEN The weather displays, the background image on the right side of the page will display a picture depicting the type of expected weather,
-i.e Sunny sky, Rain, Snow.
-THEN The right side of the screen displays a large sun, and the weather for my location is displayed there as well.
-WHEN the weather changes temperatures the color of the sun will depict that too. Hot = RED sun, Warm = Orange, Low temps = Yellow, Cold temps = Blue.
+WHEN The weather displays, it will display in card view and the background image of the card will change depending on the weather,
+i.e Sunny, CLoudy, Rain, Snow.
 THEN I am asked if i want to select a second location.
-WHEN I select another location it will display on the left side of the window, whereas my first selection is displayed on the right, to compare.
+WHEN I select another location it will display next to the first weather card, to compare.
 WHEN I view the page,
-THEN I am presented with a header, with a Farenheit/Celsius toggle, and a "Clear" button.
-WHEN I click the F/C toggle,
-THEN the degrees will be displayed to reflect the selection.
+THEN I am presented with a header,and a "Clear" button which display a modal.
+WHEN I click the Clear toggle,
+THEN all local storage is cleared.
 WHEN I click the "Clear" button,
 THEN all data is cleared and removed from local storage.
-WHEN I view localStorage,
-THEN I am presented with a JSON array of weather objects, each including the content selected by the user.
+
 ```
 
 ### Features
@@ -36,10 +33,9 @@ THEN I am presented with a JSON array of weather objects, each including the con
 - **Weather Display**: The webpage will display the current weather conditions for the entered location.
 - **Optional Information**: The webpage will have an option for the user to select Humidity, UV Index and Wind.
 - **Comparison**: Users will have the option to enter a second location and compare its weather with the first location.
-- **Interface**: The left side of the page will have a large sun. The color of the sun will change with different temperature ranges. It will also display the current weather of the location entered by the user.
-- **Reset button**: The bottom of the page will have a reset button to clear all save data.
-- **Toggle button**: There will be a toggle on the bottom of the page to display Celcius or Farenheit.
-- **Background images**: The background picture on the right side of the page will change with weather conditions.
+- **Interface**: The page loades with a scenic background and text input for city and state. When click Get Weather, it will also display the current weather of the location entered by the user on a card and the weather type will be displayed as the card background. 
+- **Reset button**: The bottom (or top) of the page will have a reset button to clear all save data.
+- **Background images**: The background picture display will be static.
 - **User-friendly Interface**: The webpage will have a clean and intuitive interface for easy navigation.
 
 
@@ -62,13 +58,14 @@ To run the webpage locally, follow these steps:
 
 - HTML
 - CSS
+- Bootstrap
 - JavaScript
 - React.js
 - OpenWeatherMap API
 
 ### License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
+
 
 ### Contact
 

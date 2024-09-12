@@ -4,21 +4,32 @@ body {
     /* margin-top: 20px; */
 }
 
+#submit {
+  text-align: left !important;
+  padding: 0;
+  width:200px;
+
+}
 .background-image {
     
     background-size: cover;
     background-position: center;
     height: 100vh;
-  background-repeat: no-repeat;
+    background-repeat: no-repeat;
 }
+
+.btn {
+  min-width: 100px;
+}
+
 
 /*
 .container {
     max-width: 300px;
 }
 */
-/* 
-.card-container {
+
+/* .card-container {
   position: fixed;
   top:20%;
   left: 20%;
@@ -30,7 +41,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: none; 
-} */
+}  */
 
 /* .card-container.show {
   display: block;
@@ -38,6 +49,19 @@ body {
 
 .card-body {
   cursor: move; /* Change cursor to indicate draggable area */
+}
+
+
+.card-bg {
+  background-size: cover; /* Ensures the image covers the card area */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repeating the image */
+  color: white; /* Text color for contrast */
+  margin-bottom: 20px; /* Optional: Add spacing between cards */
+}
+.card-bg .card-body {
+  background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent overlay to improve text readability */
+  padding: 20px; /* Optional: Adjust padding as needed */
 }
 /* 
 #weather-form{
