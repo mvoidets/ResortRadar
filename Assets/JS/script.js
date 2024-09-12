@@ -108,11 +108,11 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
 
 
         const card = document.createElement('div');
-        card.className = 'card card-bg text-center';
+        card.className = 'card card-bg text-center border-dark';
         card.id = `myCard${i}`;
 
         const cardBody = document.createElement('div');
-        cardBody.className = 'card-body';
+        cardBody.className = 'card-body rounded';
         
         const cityName = document.createElement('h3');
         cityName.textContent = `${weatherDataArray[i].city.toUpperCase()}, ${weatherDataArray[i].state.toUpperCase()}`;
@@ -186,7 +186,6 @@ function updateBackgroundImage(weatherCondition, cardId) {
    // card.style.margin = '1';
     cardImg.style.height = '30vh';
 };
-
 
 
 
