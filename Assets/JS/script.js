@@ -7,23 +7,16 @@ document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
 
-//////////
-//clear local storage on load
 
-// This function will be called when the page loads
+//clear local storage on  page load
 function clearLocalStorage() {
     localStorage.clear();
     console.log('Local storage cleared!');
 }
 
-// Add event listener for the 'DOMContentLoaded' event
 document.addEventListener('DOMContentLoaded', clearLocalStorage);
 
-
-/////////////////////////
-//trying modal
-
-
+// modal to get the number of destinations to compare, up to 6
 document.addEventListener('DOMContentLoaded', () => {
     const modalElement = document.getElementById('searchLimitModal');
     const searchLimitInput = document.getElementById('searchLimitInput');
@@ -59,8 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//////////
-
+// reset button on botton with modal 
 const modalReset = document.getElementById("reset-popup");
 const modalBtn = document.getElementById("reset");
 const resetYes = document.getElementById("reset-yes");
@@ -210,7 +202,7 @@ function displayWeatherCards(weatherDataArray, weatherExtraArray) {
 
         const weather = document.createElement('p');
         weather.className = 'card-text';
-        weather.textContent = `Weather: ${weatherExtraArray[i].weather}`;
+        weather.textContent = `Weather Condition: ${weatherExtraArray[i].weather}`;
         
         const humidity = document.createElement('p');
         humidity.className = 'card-text';

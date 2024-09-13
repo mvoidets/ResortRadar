@@ -1,6 +1,6 @@
 Project1 - ResortRadar
 
-Have you ever wanted to plan a vacation but didnt know what the weather would be like? Torn between two vacation spots? Look no further, this website will have a user enter a destination and you can also select choices to dislay such as humidty, UV index and wind, once you submit, it will then display the weather. Once that is displayed on the left side, in the center of a huge sun, that will change color depending on the temperature of that location, you can then choose a secondary location to compare to. With a side by side comparison your can decide where you want to go.
+Have you ever wanted to plan a vacation but didnt know what the weather would be like? Torn between two vacation spots? Look no further, this website will have a user enter a destination, it will then display the Temperature, Forecast, Humity and Windspeed. Once that is displayed on the left side, in the center of a huge sun, that will change color depending on the temperature of that location, you can then choose a secondary location to compare to. With a side by side comparison your can decide where you want to go.
 
 ## Weather Comparison Webpage
 This project aims to create a webpage that allows users to retrieve weather information for a specific location and compare it with another location.
