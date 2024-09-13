@@ -267,14 +267,5 @@ function updateBackgroundImage(weatherCondition, cardId) {
     cardImg.style.height = '30vh';
 };
 
-// // This function will be called when the page loads
-// function clearLocalStorage() {
-//     localStorage.clear();
-//     console.log('Local storage cleared!');
-// }
-
-// // Add event listener for the 'DOMContentLoaded' event
-// document.addEventListener('DOMContentLoaded', clearLocalStorage);
-
 
 // end

@@ -23,30 +23,6 @@ body {
 }
 
 
-/*
-.container {
-    max-width: 300px;
-}
-*/
-
-/* .card-container {
-  position: fixed;
-  top:20%;
-  left: 20%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  z-index: 1000;
-  background-color: white;
-  border: 1px solid #1d1c1c;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  display: none; 
-}  */
-
-/* .card-container.show {
-  display: block;
-} */
-
 .card-body {
   cursor: move; /* Change cursor to indicate draggable area */
 }
@@ -83,37 +59,8 @@ body {
   background: rgba(0, 0, 0, 0.5); /* Adds a semi-transparent overlay to improve text readability */
   padding: 20px; /* Optional: Adjust padding as needed */
 }
-/* 
-#weather-form{
-  flex-direction: row;
-  flex-wrap: nowrap;
-  border: 1px solid black;
-} */
 
-/* not sure how to get media query to work
-images are not resizing to fit smaller screens
 
-@media (max-width: 1024px) {
-    body {
-      
-      background-size: cover;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    body {
-      
-      background-size: cover;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    body {
-     
-      background-size: cover;
-    }
-  }
-*/
 
 .navitems{
   width:100%;
@@ -135,8 +82,11 @@ footer{
 
 
 .sub-title{
-  position:absolute;
+  position:relative;
   right:0;
   bottom:0;
+  top:15px;
   font-style: italic;
 }
+
+
