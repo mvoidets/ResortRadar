@@ -10,8 +10,33 @@ document.body.style.height = '100vh';
 //trying modal
 ///////////////////////
 
+const modal = document.getElementById("reset-popup");
+const modalBtn = document.getElementById("reset");
+const resetYes = document.getElementById("reset-yes");
+const resetNo  = document.getElementById("reset-no");
 
 
+
+modalBtn.onclick = function() {
+    modal.style.display = "block";
+}
+
+resetNo.onclick = function() {
+    modal.style.display = "none";               
+}
+
+resetYes.addEventListener('click' , function() {
+    localStorage.clear();
+    location.reload();
+});
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+modal.style.display = "none";
 
 
 
