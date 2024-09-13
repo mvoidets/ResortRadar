@@ -1,5 +1,11 @@
 Project1 - ResortRadar
 
+
+
+![sun](https://media2.giphy.com/media/BmfHlDpPWJy899dy62/giphy.webp?cid=790b761132r030lp07s8nvigajol2a0qp3ct75304hps09cr&ep=v1_gifs_search&rid=giphy.webp&ct=g)
+
+
+
 Have you ever wanted to plan a vacation but didnt know what the weather would be like? Torn between two vacation spots? Look no further, this website will have a user enter a destination, it will then display the Temperature, Weather Condition, Humity and Windspeed. When the page loads it will ask you how many destinations you would like to compare. You can select up to 6. You can then enter the City and State, click Get Weather and the weather card will display on the screen. Once you have your comparisons you can then click Reset button on the bottom of page and it will ask if you want to reset stored data. 
 
 ## Weather Comparison Webpage
@@ -31,22 +37,26 @@ WHEN I am done I can now choose where I want to travel to, knowing the weather
 
 ```
 
+
 ### Features
 
 - **Location Input**: Users can enter a destination to retrieve weather information.
 - **Weather Display**: The webpage will display the current weather conditions for the entered location.
-- **Optional Information**: The webpage will have an option for the user to select Humidity, UV Index and Wind.
 - **Comparison**: Users will have the option to enter a second location and compare its weather with the first location.
-- **Interface**: The page loades with a scenic background and text input for city and state. When click Get Weather, it will also display the current weather of the location entered by the user on a card and the weather type will be displayed as the card background. 
+! **Interface**: The page loades with a scenic background and text input for city and state. When click Get Weather, it will also display the current weather of the location entered 
+by the user on a card and the weather type will be displayed as the card background. 
 - **Reset button**: The bottom (or top) of the page will have a reset button to clear all save data.
-- **Background images**: The background picture display will be static.
 - **User-friendly Interface**: The webpage will have a clean and intuitive interface for easy navigation.
 
 
 
+![rainy](images/rainy.png)
 
-![sun](https://media2.giphy.com/media/BmfHlDpPWJy899dy62/giphy.webp?cid=790b761132r030lp07s8nvigajol2a0qp3ct75304hps09cr&ep=v1_gifs_search&rid=giphy.webp&ct=g)
+![modal](images/modal.png)
 
+![compare](images/compare.png)
+
+![reset](images/reset.png)
 
 ### Getting Started
 
@@ -71,6 +81,8 @@ To run the webpage locally, follow these steps:
 
 
 
-### Contact
+### Contributors
+- andrewsoper1
+- mvoidets
 
 If you have any questions or suggestions, feel free to reach out to us at 
