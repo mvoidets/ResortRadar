@@ -8,7 +8,7 @@ This project aims to create a webpage that allows users to retrieve weather info
 ## Acceptance Criteria
 ```md
 GIVEN  ResortRador app, for finding weather where I want to travel to
-WHEN I load the app,
+WHEN I load the app
 THEN I am presented with a modal asking how many destinations I want to compare to
 WHEN I enter a number, between 1 and 6, I click Save
 THEN I am presented with the landing page containing a form with labels and inputs for location.
