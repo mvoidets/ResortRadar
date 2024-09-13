@@ -1,29 +1,33 @@
 Project1 - ResortRadar
 
-Have you ever wanted to plan a vacation but didnt know what the weather would be like? Torn between two vacation spots? Look no further, this website will have a user enter a destination, it will then display the Temperature, Forecast, Humity and Windspeed. Once that is displayed on the left side, in the center of a huge sun, that will change color depending on the temperature of that location, you can then choose a secondary location to compare to. With a side by side comparison your can decide where you want to go.
+Have you ever wanted to plan a vacation but didnt know what the weather would be like? Torn between two vacation spots? Look no further, this website will have a user enter a destination, it will then display the Temperature, Weather Condition, Humity and Windspeed. When the page loads it will ask you how many destinations you would like to compare. You can select up to 6. You can then enter the City and State, click Get Weather and the weather card will display on the screen. Once you have your comparisons you can then click Reset button on the bottom of page and it will ask if you want to reset stored data. 
 
 ## Weather Comparison Webpage
 This project aims to create a webpage that allows users to retrieve weather information for a specific location and compare it with another location.
 
 ## Acceptance Criteria
 ```md
-GIVEN a ResortRador for finding weather where i travel to
+GIVEN  ResortRador app, for finding weather where I want to travel to
 WHEN I load the app,
+THEN I am presented with a modal asking how many destinations I want to compare to
+WHEN I enter a number, between 1 and 6, I click Save
 THEN I am presented with the landing page containing a form with labels and inputs for location.
 WHEN I try to submit a form without a valid destination or incomplete data,
 THEN I am presented with a message that prompts me to select a valid location.
 WHEN I submit the form,
-THEN the weather is loaded from API and is stored to localStorage.
-WHEN The weather displays, it will display in card view and the background image of the card will change depending on the weather,
+THEN the weather data is loaded from API and is stored to localStorage.
+WHEN The weather data is also displayed on a card and the background image of the card will change depending on the weather,
 i.e Sunny, CLoudy, Rain, Snow.
-THEN I am asked if i want to select a second location.
-WHEN I select another location it will display next to the first weather card, to compare.
-WHEN I view the page,
-THEN I am presented with a header,and a "Clear" button which display a modal.
-WHEN I click the Clear toggle,
-THEN all local storage is cleared.
-WHEN I click the "Clear" button,
-THEN all data is cleared and removed from local storage.
+THEN I keep selecting destinations, it will display as many weather cards as I previously entered 
+WHEN I am done viewing my choices
+THEN I can click the Reset button on the bottom of the page
+WHEN the button is clicked it will ask me if i want to clear to clear previous searched,
+THEN I select Yes or No
+WHEN I select YES, all the data is cleared
+THEN I can start over.
+WHEN I select NO,
+THEN I can continue selecting locations.
+WHEN I am done I can now choose where I want to travel to, knowing the weather
 
 ```
 
@@ -52,7 +56,7 @@ To run the webpage locally, follow these steps:
 2. Navigate to the project directory: `cd ResortRadar`
 3. Install the necessary dependencies: `npm install`
 4. Start the development server: `npm start`
-5. Open your web browser and visit `http://localhost:3000` to access the webpage.
+5. Open your web browser and visit `https://mvoidets.github.io/ResortRadar/` to access the webpage.
 
 ### Technologies Used
 
@@ -69,4 +73,4 @@ To run the webpage locally, follow these steps:
 
 ### Contact
 
-If you have any questions or suggestions, feel free to reach out to us at [email@example.com](mailto:email@example.com).
+If you have any questions or suggestions, feel free to reach out to us at 
