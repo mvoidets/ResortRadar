@@ -6,11 +6,62 @@ document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
 
+
+//////////
+//clear local storage on load
+
+// This function will be called when the page loads
+function clearLocalStorage() {
+    localStorage.clear();
+    console.log('Local storage cleared!');
+}
+
+// Add event listener for the 'DOMContentLoaded' event
+document.addEventListener('DOMContentLoaded', clearLocalStorage);
+
+
 /////////////////////////
 //trying modal
-///////////////////////
 
-const modal = document.getElementById("reset-popup");
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modalElement = document.getElementById('searchLimitModal');
+    const searchLimitInput = document.getElementById('searchLimitInput');
+    const saveButton = document.getElementById('saveLimit');
+
+    // Initialize Bootstrap modal
+    const modal = new bootstrap.Modal(modalElement);
+
+    // Function to show the modal
+    const showModal = () => {
+        const savedLimit = localStorage.getItem('searchLimit');
+        if (!savedLimit) {
+            searchLimitInput.value = '';
+            modal.show();
+        } else {
+            searchLimitInput.value = savedLimit;
+        }
+    };
+
+    // Show the modal if there's no saved limit
+    showModal();
+
+    // Save the limit and close the modal
+    saveButton.addEventListener('click', () => {
+        const value = parseInt(searchLimitInput.value, 10);
+        if (value >= 1 && value <= 6) {
+            localStorage.setItem('searchLimits', value);
+            modal.hide();
+        } else {
+            alert('Please enter a number between 1 and 6.');
+        }
+    });
+});
+
+
+//////////
+
+const modalReset = document.getElementById("reset-popup");
 const modalBtn = document.getElementById("reset");
 const resetYes = document.getElementById("reset-yes");
 const resetNo  = document.getElementById("reset-no");
@@ -18,11 +69,11 @@ const resetNo  = document.getElementById("reset-no");
 
 
 modalBtn.onclick = function() {
-    modal.style.display = "block";
+    modalReset.style.display = "block";
 }
 
 resetNo.onclick = function() {
-    modal.style.display = "none";               
+    modalReset.style.display = "none";               
 }
 
 resetYes.addEventListener('click' , function() {
@@ -31,16 +82,12 @@ resetYes.addEventListener('click' , function() {
 });
 
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == modalReset) {
+        modalReset.style.display = "none";
     }
 }
 
-modal.style.display = "none";
-
-
-
-
+modalReset.style.display = "none";
 
 
 
@@ -57,8 +104,8 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     const apiKey = 'ae6228c596430403bdb4b85fa54b467a'; // My API key from OpenWeatherMap
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&appid=${apiKey}&units=imperial`; //imperial 
 
-    
-   const searchLimit = 2;
+    const searchLimit = JSON.parse(localStorage.getItem('searchLimits'));
+   //const searchLimit = 2;
  
     //gets weather data from openweather api
     fetch(apiUrl)
