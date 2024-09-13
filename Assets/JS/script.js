@@ -33,10 +33,7 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&appid=${apiKey}&units=imperial`; //imperial 
 
     
-   // const searchLimits = docucument.getElementById('searchLimits').value;
-   // localStorage.setItem('searchLimits', JSON.stringify(searchLimits));
-   // const searchLimit = JSON.parse(localStorage.getItem('searchLimits'));
- const searchLimit = 2;
+   const searchLimit = 2;
  
     //gets weather data from openweather api
     fetch(apiUrl)
@@ -206,7 +203,14 @@ function updateBackgroundImage(weatherCondition, cardId) {
     cardImg.style.height = '30vh';
 };
 
+// // This function will be called when the page loads
+// function clearLocalStorage() {
+//     localStorage.clear();
+//     console.log('Local storage cleared!');
+// }
 
+// // Add event listener for the 'DOMContentLoaded' event
+// document.addEventListener('DOMContentLoaded', clearLocalStorage);
 
 
 // end
