@@ -1,5 +1,5 @@
 //setting default background image before user enters data
-document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1479888230021-c24f136d849f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsaW5nJTIwbHVnZ2FnZXxlbnwwfHwwfHx8MA%3D%3D')";
+document.body.style.backgroundImage = "url('https://image.cnbcfm.com/api/v1/image/106537227-1589463911434gettyimages-890234318.jpeg?v=1589463982&w=1600&h=900')";
 document.body.style.backgroundRepeat = 'no-repeat';
 document.body.style.backgroundSize = 'cover';
 document.body.style.backgroundPosition = 'center';
