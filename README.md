@@ -49,14 +49,15 @@ by the user on a card and the weather type will be displayed as the card backgro
 - **User-friendly Interface**: The webpage will have a clean and intuitive interface for easy navigation.
 
 
-
-![rainy](images/rainy.png)
+![landing_page](images/landing_page.png)
 
 ![modal](images/modal.png)
 
 ![compare](images/compare.png)
 
 ![reset](images/reset.png)
+
+![reset_modal](images/reset_modal.png)
 
 ### Getting Started
 

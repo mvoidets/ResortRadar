@@ -5,36 +5,8 @@ document.body.style.backgroundSize = 'cover';
 document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
-// ////////////////////////////////////////////////////////
-  // Initialize popover
-  $(function () {
-    const popoverButton = $('#submit');
-    popoverButton.popover();
 
-    // Handle form submission
-    $('#weatherForm').on('submit', function (event) {
-        event.preventDefault();
 
-        // Get the search limit from input
-        const searchLimit = JSON.parse(localStorage.getItem('searchLimits'));
-
-        // Update localStorage with the search limit
-        //localStorage.setItem('searchLimit', searchLimit);
-
-        // Show the updated count in the popover
-        const remainingSearches = localStorage.getItem('searchLimit');
-        popoverButton.attr('data-content', `Searches remaining: ${remainingSearches}`);
-        popoverButton.popover('show');
-    });
-     // Dismiss popover on click
-     $(document).on('click', function (event) {
-        if (!$(event.target).closest('[data-toggle="popover"]').length) {
-            popoverButton.popover('hide');
-        }
-    });
-});
-
-//////////////////////////////////////////////////////////////////////////////
 //clear local storage on  page load
 function clearLocalStorage() {
     localStorage.clear();
