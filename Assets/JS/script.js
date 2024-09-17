@@ -1,13 +1,41 @@
 //setting default background image before user enters data
 document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1479888230021-c24f136d849f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsaW5nJTIwbHVnZ2FnZXxlbnwwfHwwfHx8MA%3D%3D')";
+//document.body.style.backgroundImage ="url('https://img.freepik.com/free-vector/set-weather-icons_1308-130316.jpg?ga=GA1.1.1375112416.1726503668&semt=ais_hybrid')";
 document.body.style.backgroundRepeat = 'no-repeat';
 document.body.style.backgroundSize = 'cover';
 document.body.style.backgroundPosition = 'center';
 document.body.style.margin = '0';
 document.body.style.height = '100vh';
+// ////////////////////////////////////////////////////////
+  // Initialize popover
+  $(function () {
+    const popoverButton = $('#submit');
+    popoverButton.popover();
 
+    // Handle form submission
+    $('#weatherForm').on('submit', function (event) {
+        event.preventDefault();
 
+        // Get the search limit from input
+        const searchLimit = JSON.parse(localStorage.getItem('searchLimits'));
 
+        // Update localStorage with the search limit
+        //localStorage.setItem('searchLimit', searchLimit);
+
+        // Show the updated count in the popover
+        const remainingSearches = localStorage.getItem('searchLimit');
+        popoverButton.attr('data-content', `Searches remaining: ${remainingSearches}`);
+        popoverButton.popover('show');
+    });
+     // Dismiss popover on click
+     $(document).on('click', function (event) {
+        if (!$(event.target).closest('[data-toggle="popover"]').length) {
+            popoverButton.popover('hide');
+        }
+    });
+});
+
+//////////////////////////////////////////////////////////////////////////////
 //clear local storage on  page load
 function clearLocalStorage() {
     localStorage.clear();
@@ -92,19 +120,18 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
     const state = document.getElementById('state').value.trim();
     //const country = document.getElementById('country').value;
     const country = 'USA';
-    const limit = 1;
+    const limit = 2;
     const apiKey = 'ae6228c596430403bdb4b85fa54b467a'; // My API key from OpenWeatherMap
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},${country}&appid=${apiKey}&units=imperial`; //imperial 
 
     const searchLimit = JSON.parse(localStorage.getItem('searchLimits'));
    //const searchLimit = 2;
- 
+
     //gets weather data from openweather api
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             if (data.cod === 200) { 
-         
                 // Export weather and save to local storage to use later
                 var city = document.getElementById('city').value;
                 var state = document.getElementById('state').value;
@@ -112,19 +139,17 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 var weatherData = {
                     city: city,
                     state: state,
-            
                 };
-            
+
                 if (weatherData.length != 0) {
                     weatherDataArray.push(weatherData);
                 }
                 if (weatherDataArray.length > searchLimit) {
                     weatherDataArray.splice(0, weatherDataArray.length - searchLimit);
                 }
-            
+
                 localStorage.setItem('weatherData', JSON.stringify(weatherDataArray));
-               
-               
+
                 const weatherExtra = {
                     weather: data.weather[0].description,
                     temperature: data.main.temp,
@@ -139,15 +164,30 @@ document.getElementById('weather-form').addEventListener('submit', function (eve
                 }
                 localStorage.setItem('weatherExtra', JSON.stringify(weatherExtraArray));
 
-                //clear text fields
+                // Clear text fields
                 document.getElementById("city").value = "";
                 document.getElementById("state").value = "";
 
-                //will have cards display when click submit/GetWeather
+                // Display weather cards
                 displayWeatherCards(weatherDataArray.slice(0, searchLimit), weatherExtraArray.slice(0, searchLimit));
 
             } else {
-                document.getElementById('result').innerHTML = `<div class="alert alert-danger" role="alert">Error: ${data.message}</div>`;
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'alert alert-danger';
+                errorMessage.role = 'alert';
+                errorMessage.textContent = `Error: ${data.message}`;
+
+                const closeButton = document.createElement('button');
+                closeButton.type = 'button';
+                closeButton.className = 'btn-close btn-close-lg';
+                closeButton.setAttribute('data-bs-dismiss', 'alert');
+                closeButton.setAttribute('aria-label', 'Close');
+                closeButton.innerHTML = '&times;';
+
+                errorMessage.appendChild(closeButton);
+
+                document.getElementById('result').innerHTML = '';
+                document.getElementById('result').appendChild(errorMessage);
             }
         })
         .catch(error => {
@@ -254,7 +294,7 @@ function updateBackgroundImage(weatherCondition, cardId) {
     } else if (weatherCondition.includes('snowing')) {
         imageUrl = 'https://plus.unsplash.com/premium_photo-1670963964733-c4b2ea8a79be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c25vdyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D';
     } else if (weatherCondition.includes('clear')) {
-        imageUrl = 'https://images.pexels.com/photos/2102367/pexels-photo-2102367.jpeg?auto=compress&cs=tinysrgb&w=600';
+        imageUrl = 'https://image.shutterstock.com/image-photo/panorama-clear-sky-background-summer-260nw-2474793577.jpg';
     } else {
         imageUrl = 'https://media.istockphoto.com/id/516351793/photo/majestic-storm-clouds.webp?a=1&b=1&s=612x612&w=0&k=20&c=tDfBtifE8AHOehX8aiT2oba0vmefC_gpO2Ti-wcYBaU=';
     }
